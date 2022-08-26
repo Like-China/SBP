@@ -26,7 +26,7 @@ public class Dijkstra {
 	};
 	
 	public HashMap<Integer, ArrayList<Integer>> outEdgesHashMap = new HashMap<Integer, ArrayList<Integer>>();
-	public Map<Integer, List<Edge>> ver_edgeList_map = new HashMap<Integer, List<Edge>>();
+	public Map<Integer, List<ConciseEdge>> ver_edgeList_map = new HashMap<Integer, List<ConciseEdge>>();
 	public static Queue<Integer> childList = new PriorityQueue<Integer>(vertexC);
 	public static float[] minDist;
 	public static int[] preVisited;
@@ -42,7 +42,7 @@ public class Dijkstra {
 		for(int i=0;i<nodeSize;i++)
 		{
 			outEdgesHashMap.put(i, new ArrayList<Integer>());
-			ver_edgeList_map.put(i, new ArrayList<Edge>());
+			ver_edgeList_map.put(i, new ArrayList<ConciseEdge>());
 		}
 	}
 	
@@ -63,8 +63,8 @@ public class Dijkstra {
 			if (end != start && start>=0 && end>=0) {
 				outEdgesHashMap.get(start).add(end);
 				outEdgesHashMap.get(end).add(start);
-				ver_edgeList_map.get(start).add(new Edge(start,end, minCrossTime,capacity));
-				ver_edgeList_map.get(end).add(new Edge(end,start, minCrossTime,capacity));
+				ver_edgeList_map.get(start).add(new ConciseEdge(start,end, minCrossTime,capacity));
+				ver_edgeList_map.get(end).add(new ConciseEdge(end,start, minCrossTime,capacity));
 			}
 		}
 	}
@@ -85,7 +85,7 @@ public class Dijkstra {
 			}
 			
 			isVisited[curVertex] = true;
-			for (Edge e : ver_edgeList_map.get(curVertex)) {
+			for (ConciseEdge e : ver_edgeList_map.get(curVertex)) {
 				int childVertex = e.getEndVertex();
 				if (minDist[curVertex] + e.getWeight() < minDist[childVertex]) {
 					minDist[childVertex] = minDist[curVertex] + e.getWeight();

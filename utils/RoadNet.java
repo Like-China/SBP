@@ -1,16 +1,14 @@
-package planer;
+package utils;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
-
 /**
  * Get the road network information
- *[edgeId vertexId_1 vertex_Id2 distance]
+ * [edgeId vertexId_1 vertex_Id2 distance]
  */
-public class RoadNet
-{
+public class RoadNet {
 	private String filepathString;
 	private int edgeCount = 0;
 	private int vertexCount = 0;
@@ -19,7 +17,7 @@ public class RoadNet
 	public int[] ends;
 	public float[] weights;
 	public int[] capacitys;
-	
+
 	public String getFilepathString() {
 		return filepathString;
 	}
@@ -52,8 +50,7 @@ public class RoadNet
 		this.weightRange = weightRange;
 	}
 
-	public RoadNet()
-	{
+	public RoadNet() {
 		filepathString = "data/NY.txt";
 		nodeCount();
 		starts = new int[edgeCount];
@@ -62,9 +59,8 @@ public class RoadNet
 		getInfo();
 		getCostRange();
 	}
-	 
-	public RoadNet(String path)
-	{
+
+	public RoadNet(String path) {
 		filepathString = path;
 		nodeCount();
 		starts = new int[edgeCount];
@@ -73,26 +69,23 @@ public class RoadNet
 		capacitys = new int[edgeCount];
 		getInfo();
 		getCostRange();
-		
+
 	}
-	
-	public void nodeCount()
-	{
+
+	// The required number of nodes is maxID+1
+	public void nodeCount() {
 		try {
 			File file = new File(filepathString);
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String lineString = null;
-			while((lineString = reader.readLine()) != null)
-			{   
+			while ((lineString = reader.readLine()) != null) {
 				edgeCount++;
-				int nodeId1 =  Integer.parseInt(lineString.split(" ")[1]);
-				int nodeId2 =  Integer.parseInt(lineString.split(" ")[2]);
-				if(nodeId1 > vertexCount)
-				{
+				int nodeId1 = Integer.parseInt(lineString.split(" ")[1]);
+				int nodeId2 = Integer.parseInt(lineString.split(" ")[2]);
+				if (nodeId1 > vertexCount) {
 					vertexCount = nodeId1;
 				}
-				if(nodeId2 > vertexCount)
-				{
+				if (nodeId2 > vertexCount) {
 					vertexCount = nodeId2;
 				}
 			}
@@ -103,15 +96,16 @@ public class RoadNet
 		}
 		vertexCount = vertexCount + 1;
 	}
-	
+
+	// Each line: [id, start_vertex_id, end_vertex_id, weight(minCrossTime),
+	// capacity]
 	public void getInfo() {
 		try {
 			File file = new File(filepathString);
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String lineString = null;
 			int count = 0;
-			while((lineString = reader.readLine()) != null)
-			{
+			while ((lineString = reader.readLine()) != null) {
 				starts[count] = Integer.parseInt(lineString.split(" ")[1]);
 				ends[count] = Integer.parseInt(lineString.split(" ")[2]);
 				weights[count] = Float.parseFloat(lineString.split(" ")[3]);
@@ -124,25 +118,21 @@ public class RoadNet
 			e.printStackTrace();
 		}
 	}
-	
-	
-    public void getCostRange()
-	  {
-	    float minCost = Float.MAX_VALUE;
-	    float maxCost = 0f;
+
+	// get the range of minCrossTime of all moving objects
+	public void getCostRange() {
+		float minCost = Float.MAX_VALUE;
+		float maxCost = 0f;
 		try {
 			File file = new File(filepathString);
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String lineString = null;
-			while((lineString = reader.readLine()) != null)
-			{   
-				float nodeCost =  Float.parseFloat(lineString.split(" ")[3]);
-				if(nodeCost > maxCost)
-				{
+			while ((lineString = reader.readLine()) != null) {
+				float nodeCost = Float.parseFloat(lineString.split(" ")[3]);
+				if (nodeCost > maxCost) {
 					maxCost = nodeCost;
 				}
-				if(nodeCost< minCost)
-				{
+				if (nodeCost < minCost) {
 					minCost = nodeCost;
 				}
 			}
@@ -153,6 +143,6 @@ public class RoadNet
 		}
 		weightRange[0] = minCost;
 		weightRange[1] = maxCost;
-	  }
+	}
 
 }

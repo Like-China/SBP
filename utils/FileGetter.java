@@ -1,11 +1,19 @@
-package precomputation;
+package utils;
 
 import java.io.*;
 
+/**
+ * Get the lower-bound of travel time from a vertex to another
+ */
 public class FileGetter {
 	
-
-	public static float[] getDistMap(String filepath,int nodeSize)
+	/**
+	 * Get the lower-bound of travel time from a vertex to another
+	 * @param filepath  the file path that stores the lower-bound of travel time from a vertex to another
+	 * @param nodeSize  the number of vertexs
+	 * @return the lower-bound of travel time from a vertex to another
+	 */
+	public static float[] getDistMap(String filepath, int nodeSize)
 	{
 		float[] dists = new  float[nodeSize];
 		try {
@@ -25,6 +33,5 @@ public class FileGetter {
 		}
 		return dists;
 	}
-
-		
+	
 }

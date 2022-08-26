@@ -2,18 +2,18 @@ package precomputation;
 
 import java.io.*;
 
-import planer.RoadNet;
+import utils.RoadNet;
 
 /**
  * Calculate the shortest distance 
  * Store all-pairs shortest distance 
  */
-public class FileStore {
+public class ShortestDistanceStore {
 	String filepath1;
 	int startId;
 	int nodeSize;
 
-	public FileStore(int startId,int nodeSize,String roadNetPath)
+	public ShortestDistanceStore(int startId,int nodeSize,String roadNetPath)
 	{
 		this.startId = startId;
 		this.nodeSize = nodeSize;
@@ -41,41 +41,34 @@ public class FileStore {
 		}
 	}
 	
-	public static float calcExtraCost(int capacity, float minCrossTime, boolean isRushHour)
+	// extra time cost caused by non-query objects
+	public static float calcExtraCost(int capacity, float minCrossTime)
 	{
-		if(!isRushHour)
-		{
-			return (float)Math.pow(0.16, 2)*minCrossTime*2f;
-		}else {
-			return (float)Math.pow(0.48, 2)*minCrossTime*2f;
-		}
-		
-		
+		return (float)Math.pow(0.4*0.8, 2)*minCrossTime*2f;
 	}
 	
 	public static void main(String[] args) {
-		String roadName = "TGC";
+		String roadName = "NYC";
     	RoadNet road = new RoadNet("data/"+roadName+".txt");
     	int nodeSize = road.getVertexCount();
-		
-		boolean isRushHour = true;
 		int edgeSize = road.starts.length;
 		float minCrossTime[] = new float[edgeSize];
 		for(int i=0;i<edgeSize;i++)
 		{
-			minCrossTime[i] = road.weights[i]+ calcExtraCost(road.capacitys[i], road.weights[i], isRushHour);
+			minCrossTime[i] = road.weights[i] + calcExtraCost(road.capacitys[i], road.weights[i]);
 		}
         Dijkstra g = new Dijkstra(nodeSize,road.starts,road.ends, minCrossTime);
         for(int i= 0;i<nodeSize;i++)
         {
         	g = new Dijkstra(nodeSize,road.starts,road.ends, minCrossTime);
         	g.dijkstraTravasal(i, nodeSize-1);
-        	FileStore f = new FileStore(i,nodeSize,roadName);
+        	ShortestDistanceStore f = new ShortestDistanceStore(i,nodeSize,roadName);
         	f.storeMinDist();
-        	if(i%200 == 0)
+        	if(i > 0 && i % 1000 == 0)
         	{
         		System.out.printf("%d / %d (finished/total)\n", i,nodeSize);
         	}
         }
 	}
+	
 }

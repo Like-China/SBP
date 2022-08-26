@@ -1,4 +1,4 @@
-package planer;
+package utils;
 
 import java.util.*;
 
@@ -7,8 +7,6 @@ import java.util.*;
  * A trip query is specified by a user.
  */
 public class User{
-	
-	
 	/**
 	 * user id
 	 */

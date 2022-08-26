@@ -1,4 +1,4 @@
-package planer;
+package utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +25,7 @@ public class Shower {
 	public static void show(ArrayList<User> greedyUsers) {
 		System.out.println();
 		for (User u : greedyUsers) {
-			u.showInfo();
+			System.out.println(u);
 			System.out.println("-----------------");
 		}
 	}
@@ -37,7 +37,7 @@ public class Shower {
 		{
 			for(UserNodeInfo info:entry.getValue())
 			{
-				info.showInfo();
+				System.out.println(info);
 			}
 		}
 	}
@@ -58,7 +58,7 @@ public class Shower {
 		{
 			for(UserNodeInfo info:entry.getValue())
 			{
-				info.showInfo();
+				System.out.println(info);
 			}
 		}
 	}
@@ -68,7 +68,8 @@ public class Shower {
 		for (int i = 0; i < users.size(); i++) {
 			totalTime += users.get(i).totalTimeCost();
 		}
-		return totalTime;
+		// transfer into miniute
+		return totalTime/60f;
 	}
 	
 }

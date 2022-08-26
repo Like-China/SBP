@@ -1,10 +1,10 @@
-package planer;
+package utils;
 
 import java.util.Comparator;
 
 public class MyComparator {
 	// User-User comparator
-	static Comparator<User> cUser=new Comparator<User>()
+	public static Comparator<User> cUser=new Comparator<User>()
 	{
       public int compare(User o1, User o2) 
       {
@@ -22,7 +22,7 @@ public class MyComparator {
 	};
 	
 	// UserNodeInfo-UserNodeInfo Comparator
-	static Comparator<UserNodeInfo> nodeInfoComparator = new Comparator<UserNodeInfo>() {
+	public static Comparator<UserNodeInfo> nodeInfoComparator = new Comparator<UserNodeInfo>() {
 		public int compare(UserNodeInfo u1,UserNodeInfo u2)
 		{
 			if(u1.getArriveTime()+u1.getProcessTime()>u2.getArriveTime()+u2.getProcessTime())
@@ -39,7 +39,7 @@ public class MyComparator {
 	
 	
 	//Node-Node comparator
-	static Comparator<Node> openComparator = new Comparator<Node>() {
+	public static Comparator<Node> openComparator = new Comparator<Node>() {
 		public int compare(Node o1, Node o2) {
 			if(o1.sDist+o1.dDist >o2.sDist+o2.dDist)
 			{

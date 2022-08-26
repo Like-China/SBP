@@ -1,4 +1,4 @@
-package planer;
+package utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,11 +7,10 @@ import java.util.HashMap;
 /**
  * The Graph
  */
-class Graph{
-	ArrayList<Node> nodes = new ArrayList<Node>();
-	HashMap<Node, ArrayList<Edge>> edgeMap = new HashMap<Node, ArrayList<Edge>>();
-	
-	boolean isDirected = true;
+public class Graph{
+	public  ArrayList<Node> nodes = new ArrayList<Node>();
+	public  HashMap<Node, ArrayList<Edge>> edgeMap = new HashMap<Node, ArrayList<Edge>>();
+	public  boolean isDirected = true;
 	
 	public Graph() {
 		// TODO Auto-generated constructor stub
@@ -21,8 +20,6 @@ class Graph{
 	{
 		this.isDirected =  isDirected;
 	}
-	
-	
 	
 	/**
 	 * add vertex
@@ -37,7 +34,6 @@ class Graph{
 	}
 	
 	
-	
 	/**
 	 * update the node records
 	 * @param endId the destination id
@@ -50,10 +46,11 @@ class Graph{
 			nodes.get(i).dDist = (int)shortestDist[endId][i];
 			nodes.get(i).pre = 0;
 			nodes.get(i).sDist = 100000;
+			nodes.get(i).currentTime = -1;
+			nodes.get(i).preEdge = null;
 		}
 	}
 
-	
 	
 	public void addMap(int startId,int endId,int weight,int capacity)
 	{

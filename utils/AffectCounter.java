@@ -1,4 +1,4 @@
-package planer;
+package utils;
 
 import java.util.PriorityQueue;
 
@@ -20,7 +20,10 @@ public class AffectCounter {
     		while(!inNodesInfos.isEmpty())
         	{ 
     			UserNodeInfo prior = inNodesInfos.poll();
-    			if(currentUserArrTime < prior.getArriveTime()+ prior.getProcessTime())
+				// UserNodeInfo 按照到达时间+通行时间之和排序，到该判断条件前的所有UserNodeInfo不可能再与之后的BatchRefiningProcesssing.update中poll出的用户时间有交集
+				// 当前轮次poll出的UserNodeInfo的getArriveTime()+ getProcessTime()均小于BatchRefiningProcesssing.update中poll出的用户当前时间currentUserArrTime，没有交集
+				// 上一轮poll出的UserNodeInfo与之后poll出的用户当前时间currentUserArrTime更无交集，因为currentUserArrTime是递增的
+    			if(currentUserArrTime <= prior.getArriveTime()+ prior.getProcessTime())
     			{
     				inNodesInfos.add(prior);
     				break;

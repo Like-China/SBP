@@ -1,4 +1,4 @@
-package planer;
+package utils;
 
 public class UserNodeInfo implements Comparable<UserNodeInfo>{
 	private float arriveTime;
@@ -11,7 +11,6 @@ public class UserNodeInfo implements Comparable<UserNodeInfo>{
 		this.processTime = processTime;
 	}
 	
-	
 	public float getArriveTime() {
 		return arriveTime;
 	}
@@ -20,28 +19,18 @@ public class UserNodeInfo implements Comparable<UserNodeInfo>{
 		this.arriveTime = arriveTime;
 	}
 
-
-
 	public float getProcessTime() {
 		return processTime;
 	}
-
-
 
 	public void setProcessTime(float processTime) {
 		this.processTime = processTime;
 	}
 
-
-	public void showInfo()
-	{
-		System.out.println( getArriveTime()+"+"+getProcessTime()+" nextTime: "+(arriveTime+processTime));
-	}
-	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return (arriveTime+"+"+processTime);
+		return getArriveTime()+"+"+getProcessTime()+" nextTime: "+(arriveTime+processTime);
 	}
 	
 	@Override

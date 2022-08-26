@@ -1,13 +1,15 @@
 package precomputation;
 
-
-public class Edge 
+/*
+ * A concise edge for dijkstra computation
+ */
+public class ConciseEdge 
 {
 	private int startVertex;
 	private int endVertex;
 	private float weight;
 
-	public Edge(int startVertex, int endVertex, float minCrossTime,int capacity) {
+	public ConciseEdge(int startVertex, int endVertex, float minCrossTime,int capacity) {
 		this.startVertex = startVertex;
 		this.endVertex = endVertex;
 		this.weight = minCrossTime;
